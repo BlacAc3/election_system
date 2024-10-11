@@ -7,7 +7,7 @@
 -- Server version: 5.1.36
 -- PHP Version: 5.2.9-2
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+/* SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO"*/;
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -25,16 +25,15 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Table structure for table `agentname`
 --
 
-DROP TABLE IF EXISTS `agentname`;
-CREATE TABLE IF NOT EXISTS `agentname` (
-  `name_id` int(11) NOT NULL AUTO_INCREMENT,
-  `firstname` varchar(255) NOT NULL,
-  `lastname` varchar(255) NOT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `phone` char(13) NOT NULL,
-  `pollingunit_uniqueid` int(11) NOT NULL,
-  PRIMARY KEY (`name_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+DROP TABLE IF EXISTS agentname;
+CREATE TABLE IF NOT EXISTS agentname (
+  name_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  firstname TEXT NOT NULL,
+  lastname TEXT NOT NULL,
+  email TEXT DEFAULT NULL,
+  phone TEXT NOT NULL,
+  pollingunit_uniqueid INTEGER NOT NULL
+);
 
 --
 -- Dumping data for table `agentname`
@@ -52,18 +51,16 @@ INSERT INTO `agentname` (`name_id`, `firstname`, `lastname`, `email`, `phone`, `
 -- Table structure for table `announced_lga_results`
 --
 
-DROP TABLE IF EXISTS `announced_lga_results`;
-CREATE TABLE IF NOT EXISTS `announced_lga_results` (
-  `result_id` int(11) NOT NULL AUTO_INCREMENT,
-  `lga_name` varchar(50) NOT NULL,
-  `party_abbreviation` char(4) NOT NULL,
-  `party_score` int(11) NOT NULL,
-  `entered_by_user` varchar(50) NOT NULL,
-  `date_entered` datetime NOT NULL,
-  `user_ip_address` varchar(50) NOT NULL,
-  PRIMARY KEY (`result_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=244 ;
-
+DROP TABLE IF EXISTS announced_lga_results;
+CREATE TABLE IF NOT EXISTS announced_lga_results (
+  result_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  lga_name TEXT NOT NULL,
+  party_abbreviation TEXT NOT NULL,
+  party_score INTEGER NOT NULL,
+  entered_by_user TEXT NOT NULL,
+  date_entered TEXT NOT NULL, -- Store datetime as TEXT in SQLite
+  user_ip_address TEXT NOT NULL
+);
 --
 -- Dumping data for table `announced_lga_results`
 --
@@ -301,17 +298,16 @@ INSERT INTO `announced_lga_results` (`result_id`, `lga_name`, `party_abbreviatio
 -- Table structure for table `announced_pu_results`
 --
 
-DROP TABLE IF EXISTS `announced_pu_results`;
-CREATE TABLE IF NOT EXISTS `announced_pu_results` (
-  `result_id` int(11) NOT NULL AUTO_INCREMENT,
-  `polling_unit_uniqueid` varchar(50) NOT NULL,
-  `party_abbreviation` char(4) NOT NULL,
-  `party_score` int(11) NOT NULL,
-  `entered_by_user` varchar(50) NOT NULL,
-  `date_entered` datetime NOT NULL,
-  `user_ip_address` varchar(50) NOT NULL,
-  PRIMARY KEY (`result_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=261 ;
+DROP TABLE IF EXISTS announced_pu_results;
+CREATE TABLE IF NOT EXISTS announced_pu_results (
+  result_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  polling_unit_uniqueid TEXT NOT NULL,
+  party_abbreviation TEXT NOT NULL,
+  party_score INTEGER NOT NULL,
+  entered_by_user TEXT NOT NULL,
+  date_entered TEXT NOT NULL,
+  user_ip_address TEXT NOT NULL
+);
 
 --
 -- Dumping data for table `announced_pu_results`
@@ -475,17 +471,16 @@ INSERT INTO `announced_pu_results` (`result_id`, `polling_unit_uniqueid`, `party
 -- Table structure for table `announced_state_results`
 --
 
-DROP TABLE IF EXISTS `announced_state_results`;
-CREATE TABLE IF NOT EXISTS `announced_state_results` (
-  `result_id` int(11) NOT NULL AUTO_INCREMENT,
-  `state_name` varchar(50) NOT NULL,
-  `party_abbreviation` char(4) NOT NULL,
-  `party_score` int(11) NOT NULL,
-  `entered_by_user` varchar(50) NOT NULL,
-  `date_entered` datetime NOT NULL,
-  `user_ip_address` varchar(50) NOT NULL,
-  PRIMARY KEY (`result_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS announced_state_results;
+CREATE TABLE IF NOT EXISTS announced_state_results (
+  result_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  state_name TEXT NOT NULL,
+  party_abbreviation TEXT NOT NULL,
+  party_score INTEGER NOT NULL,
+  entered_by_user TEXT NOT NULL,
+  date_entered TEXT NOT NULL,
+  user_ip_address TEXT NOT NULL
+);
 
 --
 -- Dumping data for table `announced_state_results`
@@ -498,17 +493,16 @@ CREATE TABLE IF NOT EXISTS `announced_state_results` (
 -- Table structure for table `announced_ward_results`
 --
 
-DROP TABLE IF EXISTS `announced_ward_results`;
-CREATE TABLE IF NOT EXISTS `announced_ward_results` (
-  `result_id` int(11) NOT NULL AUTO_INCREMENT,
-  `ward_name` varchar(50) NOT NULL,
-  `party_abbreviation` char(4) NOT NULL,
-  `party_score` int(11) NOT NULL,
-  `entered_by_user` varchar(50) NOT NULL,
-  `date_entered` datetime NOT NULL,
-  `user_ip_address` varchar(50) NOT NULL,
-  PRIMARY KEY (`result_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS announced_ward_results;
+CREATE TABLE IF NOT EXISTS announced_ward_results (
+  result_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  ward_name TEXT NOT NULL,
+  party_abbreviation TEXT NOT NULL,
+  party_score INTEGER NOT NULL,
+  entered_by_user TEXT NOT NULL,
+  date_entered TEXT NOT NULL,
+  user_ip_address TEXT NOT NULL
+);
 
 --
 -- Dumping data for table `announced_ward_results`
@@ -521,18 +515,17 @@ CREATE TABLE IF NOT EXISTS `announced_ward_results` (
 -- Table structure for table `lga`
 --
 
-DROP TABLE IF EXISTS `lga`;
-CREATE TABLE IF NOT EXISTS `lga` (
-  `uniqueid` int(11) NOT NULL AUTO_INCREMENT,
-  `lga_id` int(11) NOT NULL,
-  `lga_name` varchar(50) NOT NULL,
-  `state_id` int(50) NOT NULL,
-  `lga_description` text,
-  `entered_by_user` varchar(50) NOT NULL,
-  `date_entered` datetime NOT NULL,
-  `user_ip_address` varchar(50) NOT NULL,
-  PRIMARY KEY (`uniqueid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
+DROP TABLE IF EXISTS lga;
+CREATE TABLE IF NOT EXISTS lga (
+  uniqueid INTEGER PRIMARY KEY AUTOINCREMENT,
+  lga_id INTEGER NOT NULL,
+  lga_name TEXT NOT NULL,
+  state_id INTEGER NOT NULL,
+  lga_description TEXT,
+  entered_by_user TEXT NOT NULL,
+  date_entered TEXT NOT NULL,
+  user_ip_address TEXT NOT NULL
+);
 
 --
 -- Dumping data for table `lga`
@@ -571,13 +564,12 @@ INSERT INTO `lga` (`uniqueid`, `lga_id`, `lga_name`, `state_id`, `lga_descriptio
 -- Table structure for table `party`
 --
 
-DROP TABLE IF EXISTS `party`;
-CREATE TABLE IF NOT EXISTS `party` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `partyid` varchar(11) NOT NULL,
-  `partyname` varchar(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+DROP TABLE IF EXISTS party;
+CREATE TABLE IF NOT EXISTS party (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  partyid TEXT NOT NULL,
+  partyname TEXT NOT NULL
+);
 
 --
 -- Dumping data for table `party`
@@ -600,23 +592,22 @@ INSERT INTO `party` (`id`, `partyid`, `partyname`) VALUES
 -- Table structure for table `polling_unit`
 --
 
-DROP TABLE IF EXISTS `polling_unit`;
-CREATE TABLE IF NOT EXISTS `polling_unit` (
-  `uniqueid` int(11) NOT NULL AUTO_INCREMENT,
-  `polling_unit_id` int(11) NOT NULL,
-  `ward_id` int(11) NOT NULL,
-  `lga_id` int(11) NOT NULL,
-  `uniquewardid` int(11) DEFAULT NULL,
-  `polling_unit_number` varchar(50) DEFAULT NULL,
-  `polling_unit_name` varchar(50) DEFAULT NULL,
-  `polling_unit_description` text,
-  `lat` varchar(255) DEFAULT NULL,
-  `long` varchar(255) DEFAULT NULL,
-  `entered_by_user` varchar(50) DEFAULT NULL,
-  `date_entered` datetime DEFAULT NULL,
-  `user_ip_address` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`uniqueid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=280 ;
+DROP TABLE IF EXISTS polling_unit;
+CREATE TABLE IF NOT EXISTS polling_unit (
+  uniqueid INTEGER PRIMARY KEY AUTOINCREMENT,
+  polling_unit_id INTEGER NOT NULL,
+  ward_id INTEGER NOT NULL,
+  lga_id INTEGER NOT NULL,
+  uniquewardid INTEGER DEFAULT NULL,
+  polling_unit_number TEXT DEFAULT NULL,
+  polling_unit_name TEXT DEFAULT NULL,
+  polling_unit_description TEXT,
+  lat TEXT DEFAULT NULL,
+  long TEXT DEFAULT NULL,
+  entered_by_user TEXT DEFAULT NULL,
+  date_entered TEXT DEFAULT NULL,
+  user_ip_address TEXT DEFAULT NULL
+);
 
 --
 -- Dumping data for table `polling_unit`
@@ -902,12 +893,11 @@ INSERT INTO `polling_unit` (`uniqueid`, `polling_unit_id`, `ward_id`, `lga_id`, 
 -- Table structure for table `states`
 --
 
-DROP TABLE IF EXISTS `states`;
-CREATE TABLE IF NOT EXISTS `states` (
-  `state_id` int(11) NOT NULL,
-  `state_name` varchar(50) NOT NULL,
-  PRIMARY KEY (`state_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS states;
+CREATE TABLE IF NOT EXISTS states (
+  state_id INTEGER PRIMARY KEY,
+  state_name TEXT NOT NULL
+);
 
 --
 -- Dumping data for table `states`
@@ -958,18 +948,17 @@ INSERT INTO `states` (`state_id`, `state_name`) VALUES
 -- Table structure for table `ward`
 --
 
-DROP TABLE IF EXISTS `ward`;
-CREATE TABLE IF NOT EXISTS `ward` (
-  `uniqueid` int(11) NOT NULL AUTO_INCREMENT,
-  `ward_id` int(11) NOT NULL,
-  `ward_name` varchar(50) NOT NULL,
-  `lga_id` int(11) NOT NULL,
-  `ward_description` text,
-  `entered_by_user` varchar(50) NOT NULL,
-  `date_entered` datetime NOT NULL,
-  `user_ip_address` varchar(50) NOT NULL,
-  PRIMARY KEY (`uniqueid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=264 ;
+DROP TABLE IF EXISTS ward;
+CREATE TABLE IF NOT EXISTS ward (
+  uniqueid INTEGER PRIMARY KEY AUTOINCREMENT,
+  ward_id INTEGER NOT NULL,
+  ward_name TEXT NOT NULL,
+  lga_id INTEGER NOT NULL,
+  ward_description TEXT,
+  entered_by_user TEXT NOT NULL,
+  date_entered TEXT NOT NULL,
+  user_ip_address TEXT NOT NULL
+);
 
 --
 -- Dumping data for table `ward`

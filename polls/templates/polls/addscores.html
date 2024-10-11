@@ -1,0 +1,81 @@
+{% load static tailwind_tags %}
+<!DOCTYPE>
+<head>
+    <title>INEC System</title>
+    {% tailwind_css %}
+</head>
+<body>
+    <nav class="font-bold bg-gray-800 p-4 flex items-center justify-between">
+        <h1 class="">Built By BlacAc3</h1>
+        <a href="{% url 'index' %}" class="p-2 bg-yellow-300 border-2 border-yellow-300 rounded-lg hover:bg-yellow-400 hover:border-slate-900 transition-all duration-300 cursor-pointer"> Polls</a>
+        <a href="{% url 'lga' %}" class="p-2 bg-yellow-300 border-2 border-yellow-300 rounded-lg hover:bg-yellow-400 hover:border-slate-900 transition-all duration-300 cursor-pointer" >LGA</a>
+        <a href="{% url 'new_polling_unit' %}" class="p-2 bg-yellow-300 border-2 border-yellow-300 rounded-lg hover:bg-yellow-400 hover:border-slate-900 transition-all duration-300 cursor-pointer" >Add Polling Unit</a>
+    </nav>
+    <div class="container mx-auto p-5">
+        <h1 class="text-3xl font-bold mb-5">Store Polling Unit Results</h1>
+        
+        <form action="{% url 'create_polling_unit' %}" method="post" class="bg-white p-6 rounded shadow-md">
+            {% csrf_token %}
+            
+            <div class="mb-4">
+                <label for="polling_unit_id" class="block text-gray-700">Polling Unit ID:</label>
+                <input id="polling_unit_id" name="polling_unit_id" required class="mt-1 block w-full border-gray-300 rounded-md">
+            </div>
+
+            <div class="mb-4">
+                <label for="ward_id" class="block text-gray-700">Ward:</label>
+                <select name="ward_id" id="ward_id">
+                    {% for ward in wards %}
+                    <option value="{{ ward.ward_id }}" class="border-2 border-gray-500 p-2 my-2 rounded-lg hover:bg-gray-300 transition-all duration-300 cursor-pointer">
+                            <p><{{ ward.ward_id }}> {{ ward.ward_name }}</p>
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label for="lga_id" class="block text-gray-700">LGA:</label>
+                <select name="lga_id" id="lga_id">
+                    {% for lga in lgas %}
+                    <option value="{{ lga.lga_id }}" class="border-2 border-gray-500 p-2 my-2 rounded-lg hover:bg-gray-300 transition-all duration-300 cursor-pointer">
+                            <p><{{ lga.lga_id }}> {{ lga.lga_name }}</p>
+                        </option>
+                    {% endfor %}
+                </select>
+
+            </div>
+
+            <div class="mb-4">
+                <label for="polling_unit_name" class="block text-gray-700">Polling Unit Name:</label>
+                <input type="text" id="polling_unit_name" name="polling_unit_name" class="mt-1 block w-full border-gray-300 rounded-md">
+            </div>
+
+            <div class="mb-4">
+                <label for="entered_by_user" class="block text-gray-700">Entered By User:</label>
+                <input type="text" id="entered_by_user" name="entered_by_user" required class="mt-1 block w-full border-gray-300 rounded-md">
+            </div>
+
+            <div class="mb-4">
+                <label for="date_entered" class="block text-gray-700">Date Entered:</label>
+                <input type="text" id="date_entered" name="date_entered"  class="mt-1 block w-full border-gray-300 rounded-md">
+            </div>
+
+            <div class="mb-4">
+                <label for="user_ip_address" class="block text-gray-700">User IP Address:</label>
+                <input type="text" id="user_ip_address" name="user_ip_address"  class="mt-1 block w-full border-gray-300 rounded-md">
+            </div>
+
+            <h2 class="text-2xl font-bold mb-4">Results by Party</h2>
+            {% for party in parties %}
+            <div class="mb-4">
+                <label for="party_{{ party.partyid }}" class="block text-gray-700">{{ party.partyname }}:</label>
+                <input type="number" id="party_{{ party.partyid }}" name="party_{{ party.partyid }}" class="mt-1 block w-full border-gray-300 rounded-md">
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="mt-4 bg-blue-500 text-white font-bold py-2 px-4 rounded">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
+

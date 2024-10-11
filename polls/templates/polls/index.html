@@ -5,8 +5,37 @@
     {% tailwind_css %}
 </head>
 <body>
-    <nav class="bg-gray-800">
-        <h1>Built By BlacAc3</h1>
+    <nav class="font-bold bg-gray-800 p-4 flex items-center justify-between">
+        <h1 class="">Built By BlacAc3</h1>
+        <a href="{% url 'index' %}" class="p-2 bg-yellow-300 border-2 border-yellow-300 rounded-lg hover:bg-yellow-400 hover:border-slate-900 transition-all duration-300 cursor-pointer"> Polls</a>
+        <a href="{% url 'lga' %}" class="p-2 bg-yellow-300 border-2 border-yellow-300 rounded-lg hover:bg-yellow-400 hover:border-slate-900 transition-all duration-300 cursor-pointer" >LGA</a>
+        <a href="{% url 'new_polling_unit' %}" class="p-2 bg-yellow-300 border-2 border-yellow-300 rounded-lg hover:bg-yellow-400 hover:border-slate-900 transition-all duration-300 cursor-pointer" >Add Polling Unit</a>
     </nav>
+    <section class="p-4">
+        {% if not pu_results %} 
+            <h1 class="text-2xl font-extrabold  p-4 mb-8 border-b-2 border-gray-500">All Polling Units</h1>
+            <ul>
+                {% for units in polling_units %}
+                <a href="{% url 'polling_unit_results' units.uniqueid %}">
+                    <li class="border-2 border-gray-500 p-2 my-2 rounded-lg hover:bg-gray-300 transition-all duration-300 cursor-pointer">
+                        <p>ID: {{ units.polling_unit_number }}</p>
+                        <p>Name: {{ units.polling_unit_name }}</p>
+                        <p>Description: {{ units.polling_unit_description }}</p>
+                        <p>LGA ID: {{ units.lga_id }}</p>
+                    </li>
+                </a>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <ul>
+                {% for result in pu_results %}
+                <li class="border-2 border-gray-500 p-2 my-2 rounded-lg">
+                    <p>{{ result.party_abbreviation }}</p>
+                    <p>{{ result.party_score }}</p>
+                </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </section>
 </body>
 
