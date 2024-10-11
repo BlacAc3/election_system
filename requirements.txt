@@ -1,4 +1,4 @@
 django==5.1.2
 django-tailwind==3.8.0
 django-browser-reload==1.15.0
-mysqlclient==2.1.1
+whitenoise==6.2.0
